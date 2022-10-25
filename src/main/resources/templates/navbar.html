@@ -1,0 +1,15 @@
+<nav class="navbar navbar-light bg-light" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">HOME</a>
+        <a class="btn btn-primary" href="/login" sec:authorize="isAnonymous()">Login</a>
+        <a class="btn btn-primary" href="/register" sec:authorize="isAnonymous()">Register</a>
+
+        <div sec:authorize="isAuthenticated()">
+            <span th:text="'Welcome ' + ${#authentication.getPrincipal().getUsername()} + '!'"></span>
+            <script>window.userId = [[${#authentication.getPrincipal().getId()}]]</script>
+        </div>
+
+        <a class="btn btn-primary" href="/profile" sec:authorize="isAuthenticated()">Your Account</a>
+        <a class="btn btn-danger" href="/logout" sec:authorize="isAuthenticated()">Logout</a>
+    </div>
+</nav>

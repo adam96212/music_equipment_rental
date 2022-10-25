@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:insert="head.html"/>
+
+<body>
+<div th:insert="navbar.html"></div>
+<div class="container">
+    <div class="row align-items-center" style="margin-top: 1rem">
+        <div class="card col">
+            <div class="card-body">
+                <h5 class="card-title">Users</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">firstName</th>
+                        <th scope="col">lastName</th>
+                        <th scope="col">username</th>
+                        <th scope="col">email</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user: ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td>
+                            <a th:href="@{deleteUser/__${user.id}__}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tbody>
+                </table>
+                <nav aria-label="..." style="margin-top: 1rem">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:if="${users.totalPages > 0}" th:each="pageNumber : ${usersPageNumbers}">
+                            <a th:href="@{/admin(usersSize=${users.size}, usersPage=${pageNumber})}" th:text="${pageNumber}" th:class="'page-link ' + ${pageNumber==users.number + 1}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center" style="margin-top: 1rem">
+        <div class="card col">
+            <div class="card-body">
+                <h5 class="card-title">Bookings</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">userId</th>
+                        <th scope="col">rooms</th>
+                        <th scope="col">startDate</th>
+                        <th scope="col">endDate</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="booking: ${bookings}">
+                        <td th:text="${booking.id}"></td>
+                        <td th:text="${booking.userId}"></td>
+                        <td th:text="${booking.rooms}"></td>
+                        <td th:text="${booking.startDate}"></td>
+                        <td th:text="${booking.endDate}"></td>
+                        <td>
+                            <a th:href="@{deleteBooking/__${booking.id}__}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tbody>
+                </table>
+                <nav aria-label="..." style="margin-top: 1rem">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:if="${bookings.totalPages > 0}"
+                            th:each="pageNumber : ${bookingsPageNumbers}">
+                            <a th:href="@{/admin(bookingsS=${bookings.size}, bookingsPage=${pageNumber})}"
+                               th:text="${pageNumber}" th:class="'page-link ' + ${pageNumber==bookings.number + 1}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="card col">
+            <div class="card-body">
+                <h5 class="card-title">Rooms</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Room Area</th>
+                        <th scope="col">Number of Beds</th>
+                        <th scope="col">Standard Room</th>
+                        <th scope="col">Max People</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="room: ${rooms}">
+                        <td th:text="${room.id}"></td>
+                        <td th:text="${room.capacityRoom} + 'm2'"></td>
+                        <td th:text="${room.numberOfBeds}"></td>
+                        <td th:text="${room.roomStandardEnum}"></td>
+                        <td th:text="${room.maxPeople}"></td>
+                        <td>
+                            <a th:href="@{deleteRoom/__${room.id}__}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tbody>
+                </table>
+                <nav aria-label="..." style="margin-top: 1rem">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:if="${rooms.totalPages > 0}"
+                            th:each="pageNumber : ${roomsPageNumbers}">
+                            <a th:href="@{/admin(roomsSize=${bookings.size}, roomsPage=${pageNumber})}"
+                               th:text="${pageNumber}" th:class="'page-link ' + ${pageNumber==rooms.number + 1}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

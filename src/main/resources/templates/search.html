@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:insert="head.html">
+</head>
+
+<body>
+<div th:insert="navbar.html"></div>
+<div class="container">
+    <form enctype="multipart/form-data" name="form1" id="form1" th:action="@{/filter}" th:object="${searchRequest}" method="post">
+        <div class="card justify-content-center" style="margin-top: 1rem">
+            <div class="row">
+                <div class="col">
+                    <label for="roomStandard">Standard</label>
+                    <select name="roomStandard" class="form-select" id="roomStandard" aria-label="Default select example">
+                        <option value="">All</option>
+                        <option value="STANDARD">Standard</option>
+                        <option value="DELUXE">Deluxe</option>
+                        <option value="APARTMENT">Apartment</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="start">Start date:</label>
+                    <input type="date" id="start" name="start" th:value="${searchRequest.start}" required>
+                </div>
+                <div class="col">
+                    <label for="end">End date:</label>
+                    <input type="date" id="end" name="end" th:value="${searchRequest.end}" required>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Search rooms</button>
+    </form>
+    <div class="card" style="margin-top: 1rem">
+        <form enctype="multipart/form-data" name="form2" id="form2" method="post">
+            <div class="card col">
+                <div class="card-body">
+                    <h5 class="card-title">Available rooms</h5>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Standard Room</th>
+                            <th scope="col">Max People</th>
+                            <th scope="col">Number of Beds</th>
+                            <th scope="col">Room area</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="room: ${rooms}">
+                            <td>
+                                <input th:name="${room.id}" class="form-check-input" type="checkbox" value="true" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault"></label>
+                            </td>
+                            <td th:text="${room.roomStandardEnum}"></td>
+                            <td th:text="${room.maxPeople}"></td>
+                            <td th:text="${room.numberOfBeds}"></td>
+                            <td th:text="${room.capacityRoom}"></td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Create booking</button>
+        </form>
+    </div>
+</div>
+<script>
+    let form_1_element = document.getElementById("form1");
+    let form_2_element = document.getElementById("form2");
+    form_2_element.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let form1 = new FormData(form_1_element);
+        let startDate = form1.get("start")
+        let endDate = form1.get("end")
+        let form2 = new FormData(form_2_element);
+        console.log([...form2.keys()]);
+        const form = new FormData();
+        let roomIds = [...form2.keys()].map(el => {
+            return Number(el);
+        })
+        form.append("roomIds", roomIds)
+        form.append("startDate", startDate);
+        form.append("endDate", endDate);
+        form.append("userId", userId);
+        console.log([...form.entries()]);
+        fetch("/createBooking", {
+            method: "POST",
+            body: form
+        });
+        window.location.href='/home';
+    });
+</script>
+</body>
+</html>
+

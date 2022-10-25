@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:insert="head.html">
+</head>
+
+<body>
+<div th:insert="navbar.html"></div>
+<div class="container">
+    <a class="btn btn-primary" style="margin-top: 1rem; width: 100%" href="/search" sec:authorize="isAuthenticated()">Find and book room!</a>
+    <div class="row row-cols-5" style="margin-top: 1rem;">
+        <div class="card-group col" th:each="room: ${rooms}" style="margin-top: 1rem;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-text"><b>
+                        <p th:text="'Room standard: ' + ${room.roomStandardEnum}"></p>
+                    </b></div>
+                    <div class="card-text"><b>
+                        <p th:text="'Room area: ' + ${room.capacityRoom} + 'm2'"></p>
+                    </b></div>
+                    <div class="card-text"><b>
+                        <p th:text="'Max people: '  + ${room.maxPeople}"></p>
+                    </b></div>
+                    <div class="card-text"><b>
+                        <p th:text="'Number of beds: '  + ${room.numberOfBeds}"></p>
+                    </b></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav aria-label="..." style="margin-top: 1rem">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:if="${rooms.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+                <a th:href="@{/home(size=${rooms.size}, page=${pageNumber})}" th:text="${pageNumber}" th:class="'page-link ' + ${pageNumber==rooms.number + 1}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

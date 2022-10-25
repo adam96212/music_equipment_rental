@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeeaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="">
+
+<head th:insert="head.html">
+</head>
+
+<body>
+<div th:insert="navbar.html"></div>
+<div class="container align-items-center" sec:authorize="isAnonymous()">
+    404 not found
+</div>
+<div class="container" sec:authorize="isAuthenticated()">
+    <div class="row align-items-center" style="margin-top: 1rem">
+        <div class="card col">
+            <div class="card-body">
+                <h5 class="card-title">Your data</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center" style="margin-top: 1rem">
+        <div class="card col">
+            <div class="card-body">
+                <h5 class="card-title">Your bookings</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Uniq rent code</th>
+                        <th scope="col">Bookings</th>
+                        <th scope="col">Start date</th>
+                        <th scope="col">End date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="booking: ${bookings}">
+                        <td th:text="${booking.code}"></td>
+                        <td th:text="${booking.rooms}"></td>
+                        <td th:text="${booking.startDate}"></td>
+                        <td th:text="${booking.endDate}"></td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
