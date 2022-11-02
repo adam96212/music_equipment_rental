@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pl</groupId>
-    <artifactId>rent_a_car</artifactId>
+    <artifactId>music_equipment_rental</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rent_a_car</name>
     <description>rent_a_car</description>
