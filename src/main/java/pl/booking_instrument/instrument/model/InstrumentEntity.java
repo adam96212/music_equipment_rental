@@ -28,7 +28,7 @@ public class InstrumentEntity {
 
     private int price;
 
-    @ManyToMany(mappedBy = "rooms", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "instruments", cascade = CascadeType.ALL)
     private List<BookingEntity> bookings;
 
 

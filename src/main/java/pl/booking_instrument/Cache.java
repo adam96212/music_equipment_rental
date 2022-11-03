@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 @Component("singleton")
 public class Cache {
-    private List<InstrumentDto> rooms;
+    private List<InstrumentDto> instruments;
 }

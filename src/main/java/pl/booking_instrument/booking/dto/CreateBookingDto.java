@@ -13,7 +13,7 @@ import java.util.List;
 public class CreateBookingDto {
 
     private Long userId;
-    private List<Long> roomIds;
+    private List<Long> instrumentIds;
     private String startDate;
     private String endDate;
 

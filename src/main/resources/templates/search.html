@@ -11,12 +11,12 @@
         <div class="card justify-content-center" style="margin-top: 1rem">
             <div class="row">
                 <div class="col">
-                    <label for="roomStandard">Standard</label>
-                    <select name="roomStandard" class="form-select" id="roomStandard" aria-label="Default select example">
+                    <label for="instrumentType">Instrument type:</label>
+                    <select name="instrumentType" class="form-select" id="instrumentType" aria-label="Default select example">
                         <option value="">All</option>
-                        <option value="STANDARD">Standard</option>
-                        <option value="DELUXE">Deluxe</option>
-                        <option value="APARTMENT">Apartment</option>
+                        <option value="String">String</option>
+                        <option value="Keyboard">Keyboard</option>
+                        <option value="Wind">Wind</option>
                     </select>
                 </div>
             </div>
@@ -31,33 +31,33 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Search rooms</button>
+        <button type="submit" class="btn btn-primary w-100">Search instruments</button>
     </form>
     <div class="card" style="margin-top: 1rem">
         <form enctype="multipart/form-data" name="form2" id="form2" method="post">
             <div class="card col">
                 <div class="card-body">
-                    <h5 class="card-title">Available rooms</h5>
+                    <h5 class="card-title">Available instruments</h5>
                     <table class="table">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Standard Room</th>
-                            <th scope="col">Max People</th>
-                            <th scope="col">Number of Beds</th>
-                            <th scope="col">Room area</th>
+                            <th scope="col">Instrument Type</th>
+                            <th scope="col">Instrument Colour</th>
+                            <th scope="col">Instrument Weight</th>
+                            <th scope="col">Instrument Price</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="room: ${rooms}">
+                        <tr th:each="instrument: ${instruments}">
                             <td>
-                                <input th:name="${room.id}" class="form-check-input" type="checkbox" value="true" id="flexCheckDefault">
+                                <input th:name="${instrument.id}" class="form-check-input" type="checkbox" value="true" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault"></label>
                             </td>
-                            <td th:text="${room.roomStandardEnum}"></td>
-                            <td th:text="${room.maxPeople}"></td>
-                            <td th:text="${room.numberOfBeds}"></td>
-                            <td th:text="${room.capacityRoom}"></td>
+                            <td th:text="${instrument.instrumentTypeEnum}"></td>
+                            <td th:text="${instrument.colour}"></td>
+                            <td th:text="${instrument.weight}"></td>
+                            <td th:text="${instrument.price}"></td>
                         </tbody>
                     </table>
                 </div>
@@ -77,10 +77,10 @@
         let form2 = new FormData(form_2_element);
         console.log([...form2.keys()]);
         const form = new FormData();
-        let roomIds = [...form2.keys()].map(el => {
+        let instrumentIds = [...form2.keys()].map(el => {
             return Number(el);
         })
-        form.append("roomIds", roomIds)
+        form.append("instrumentIds", instrumentIds)
         form.append("startDate", startDate);
         form.append("endDate", endDate);
         form.append("userId", userId);

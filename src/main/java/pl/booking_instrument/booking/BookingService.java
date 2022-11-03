@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.booking_instrument.booking.dto.BookingDto;
 import pl.booking_instrument.booking.dto.CreateBookingDto;
 import pl.booking_instrument.booking.model.BookingEntity;
-import pl.booking_instrument.instrument.RoomRepository;
+import pl.booking_instrument.instrument.InstrumentRepository;
 import pl.booking_instrument.instrument.model.InstrumentEntity;
 import pl.booking_instrument.user.UserRepository;
 import pl.booking_instrument.user.model.UserEntity;
@@ -26,32 +26,32 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
-    private final RoomRepository roomRepository;
+    private final InstrumentRepository instrumentRepository;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository, UserRepository userRepository, RoomRepository roomRepository) {
+    public BookingService(BookingRepository bookingRepository, UserRepository userRepository, InstrumentRepository instrumentRepository) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
-        this.roomRepository = roomRepository;
+        this.instrumentRepository = instrumentRepository;
     }
 
     public void createBooking(CreateBookingDto createBookingDto) {
         BookingEntity booking = new BookingEntity();
         Optional<UserEntity> userEntityById = userRepository.findUserEntityById(createBookingDto.getUserId());
 
-        if (createBookingDto.getRoomIds().isEmpty() || userEntityById.isEmpty()) {
+        if (createBookingDto.getInstrumentIds().isEmpty() || userEntityById.isEmpty()) {
             throw new RuntimeException();
         }
 
         UserEntity user = userEntityById.get();
         booking.setUser(user);
 
-        List<InstrumentEntity> rooms = createBookingDto.getRoomIds().stream()
-                .map(roomRepository::findById).map(Optional::get)
+        List<InstrumentEntity> instruments = createBookingDto.getInstrumentIds().stream()
+                .map(instrumentRepository::findById).map(Optional::get)
                 .collect(Collectors.toUnmodifiableList());
 
         booking.setBookingCode(UUID.randomUUID());
-        booking.setRooms(rooms);
+        booking.setInstruments(instruments);
         booking.setStartDate(LocalDate.parse(createBookingDto.getStartDate()));
         booking.setEndDate(LocalDate.parse((createBookingDto.getEndDate())));
 
@@ -99,16 +99,16 @@ public class BookingService {
 
     @PostConstruct
     public void init() {
-        createBooking(CreateBookingDto.builder().userId(2L).roomIds(List.of(1L)).startDate("2022-01-24").endDate("2022-01-31").build());
-        createBooking(CreateBookingDto.builder().userId(2L).roomIds(List.of(2L)).startDate("2022-02-01").endDate("2022-02-21").build());
-        createBooking(CreateBookingDto.builder().userId(4L).roomIds(List.of(4L)).startDate("2022-01-24").endDate("2022-01-31").build());
-        createBooking(CreateBookingDto.builder().userId(3L).roomIds(List.of(5L)).startDate("2022-02-15").endDate("2022-02-21").build());
-        createBooking(CreateBookingDto.builder().userId(3L).roomIds(List.of(3L)).startDate("2022-01-24").endDate("2022-01-31").build());
-        createBooking(CreateBookingDto.builder().userId(5L).roomIds(List.of(5L)).startDate("2022-03-01").endDate("2022-03-21").build());
-        createBooking(CreateBookingDto.builder().userId(6L).roomIds(List.of(6L)).startDate("2022-01-24").endDate("2022-01-31").build());
-        createBooking(CreateBookingDto.builder().userId(6L).roomIds(List.of(7L)).startDate("2022-05-12").endDate("2022-05-21").build());
-        createBooking(CreateBookingDto.builder().userId(6L).roomIds(List.of(8L)).startDate("2022-10-15").endDate("2022-06-23").build());
-        createBooking(CreateBookingDto.builder().userId(6L).roomIds(List.of(9L)).startDate("2022-02-01").endDate("2022-02-21").build());
+        createBooking(CreateBookingDto.builder().userId(2L).instrumentIds(List.of(1L)).startDate("2022-01-24").endDate("2022-01-31").build());
+        createBooking(CreateBookingDto.builder().userId(2L).instrumentIds(List.of(2L)).startDate("2022-02-01").endDate("2022-02-21").build());
+        createBooking(CreateBookingDto.builder().userId(4L).instrumentIds(List.of(4L)).startDate("2022-01-24").endDate("2022-01-31").build());
+        createBooking(CreateBookingDto.builder().userId(3L).instrumentIds(List.of(5L)).startDate("2022-02-15").endDate("2022-02-21").build());
+        createBooking(CreateBookingDto.builder().userId(3L).instrumentIds(List.of(3L)).startDate("2022-01-24").endDate("2022-01-31").build());
+        createBooking(CreateBookingDto.builder().userId(5L).instrumentIds(List.of(5L)).startDate("2022-03-01").endDate("2022-03-21").build());
+        createBooking(CreateBookingDto.builder().userId(6L).instrumentIds(List.of(6L)).startDate("2022-01-24").endDate("2022-01-31").build());
+        createBooking(CreateBookingDto.builder().userId(6L).instrumentIds(List.of(7L)).startDate("2022-05-12").endDate("2022-05-21").build());
+        createBooking(CreateBookingDto.builder().userId(6L).instrumentIds(List.of(8L)).startDate("2022-10-15").endDate("2022-06-23").build());
+        createBooking(CreateBookingDto.builder().userId(6L).instrumentIds(List.of(9L)).startDate("2022-02-01").endDate("2022-02-21").build());
     }
 
 }

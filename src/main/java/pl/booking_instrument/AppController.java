@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.booking_instrument.booking.BookingService;
 import pl.booking_instrument.booking.dto.BookingDto;
 import pl.booking_instrument.booking.dto.CreateBookingDto;
-import pl.booking_instrument.instrument.RoomService;
+import pl.booking_instrument.instrument.InstrumentService;
 import pl.booking_instrument.instrument.dto.InstrumentDto;
 import pl.booking_instrument.instrument.dto.InstrumentSearchRequest;
 import pl.booking_instrument.user.UserException;
@@ -29,7 +29,7 @@ import java.util.stream.IntStream;
 @Controller
 public class AppController {
     private final Cache cache;
-    private final RoomService roomService;
+    private final InstrumentService instrumentService;
     private final UserService userService;
     private final BookingService bookingService;
 
@@ -37,10 +37,10 @@ public class AppController {
     private Map<String, String> errors = new HashMap<>();
 
     @Autowired
-    public AppController(Cache cache, RoomService roomService, UserService userService, BookingService bookingService) {
+    public AppController(Cache cache, InstrumentService instrumentService, UserService userService, BookingService bookingService) {
         this.cache = cache;
         this.bookingService= bookingService;
-        this.roomService = roomService;
+        this.instrumentService = instrumentService;
         this.userService = userService;
     }
 
@@ -52,10 +52,10 @@ public class AppController {
         int currentPage = page.orElse(1);
         int pageS = size.orElse(10);
 
-        Page<InstrumentDto> roomsPage = roomService.getRooms(PageRequest.of(currentPage - 1, pageS));
-        model.addAttribute("rooms", roomsPage);
+        Page<InstrumentDto> instrumentsPage = instrumentService.getInstruments(PageRequest.of(currentPage - 1, pageS));
+        model.addAttribute("instruments", instrumentsPage);
 
-        int totalPages = roomsPage.getTotalPages();
+        int totalPages = instrumentsPage.getTotalPages();
         if (totalPages > 0)
         {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -114,11 +114,11 @@ public class AppController {
     }
 
     @PostMapping(path = "/filter")
-    public String searchRooms(@ModelAttribute InstrumentSearchRequest roomSearchRequest)
+    public String searchInstruments(@ModelAttribute InstrumentSearchRequest instrumentSearchRequest)
     {
-        List<InstrumentDto> rooms = roomService.searchRooms(roomSearchRequest);
-        searchRequestDtoGlobal = roomSearchRequest;
-        cache.setRooms(rooms);
+        List<InstrumentDto> instruments = instrumentService.searchInstruments(instrumentSearchRequest);
+        searchRequestDtoGlobal = instrumentSearchRequest;
+        cache.setInstruments(instruments);
         return "redirect:/search";
     }
 
@@ -134,7 +134,7 @@ public class AppController {
     {
         InstrumentSearchRequest request = searchRequestDtoGlobal != null ? searchRequestDtoGlobal : new InstrumentSearchRequest();
         model.addAttribute("searchRequest", request);
-        model.addAttribute("rooms", cache.getRooms());
+        model.addAttribute("instruments", cache.getInstruments());
         return "search";
     }
 
@@ -157,8 +157,8 @@ public class AppController {
                                 @RequestParam("usersSize") Optional<Integer> usersSize,
                                 @RequestParam("bookingsPage") Optional<Integer> bookingsPage,
                                 @RequestParam("bookingsSize") Optional<Integer> bookingsSize,
-                                @RequestParam("roomsPage") Optional<Integer> roomsPage,
-                                @RequestParam("roomsSize") Optional<Integer> roomsSize)
+                                @RequestParam("instrumentsPage") Optional<Integer> instrumentsPage,
+                                @RequestParam("instrumentsWeight") Optional<Integer> instrumentsWeight)
     {
         int usersCurrentPage = usersPage.orElse(1);
         int usersPageSize = usersSize.orElse(5);
@@ -192,10 +192,10 @@ public class AppController {
             model.addAttribute("bookingsPageNumbers", bookingsPageNumbers);
         }
 
-        int currentPage = roomsPage.orElse(1);
-        int pageSize = roomsSize.orElse(5);
+        int currentPage = instrumentsPage.orElse(1);
+        int pageSize = instrumentsWeight.orElse(5);
 
-        Page<InstrumentDto> rooms = roomService.getRooms(PageRequest.of(currentPage - 1, pageSize));
+        Page<InstrumentDto> rooms = instrumentService.getInstruments(PageRequest.of(currentPage - 1, pageSize));
 
         model.addAttribute("rooms", rooms);
 
@@ -233,7 +233,7 @@ public class AppController {
     @GetMapping(path = "/deleteRoom/{id}")
     public String deleteRoom(@PathVariable Long id)
     {
-        roomService.deleteRoom(id);
+        instrumentService.deleteInstrument(id);
         return "redirect:/admin";
     }
 }

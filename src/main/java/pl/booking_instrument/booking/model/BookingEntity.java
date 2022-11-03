@@ -30,7 +30,7 @@ public class BookingEntity {
     private LocalDate endDate;
 
     @ManyToMany
-    private List<InstrumentEntity> rooms;
+    private List<InstrumentEntity> instruments;
 
     @ManyToOne
     private UserEntity user;

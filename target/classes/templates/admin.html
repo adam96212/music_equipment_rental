@@ -52,7 +52,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">userId</th>
-                        <th scope="col">rooms</th>
+                        <th scope="col">instruments</th>
                         <th scope="col">startDate</th>
                         <th scope="col">endDate</th>
                         <th scope="col"></th>
@@ -62,7 +62,7 @@
                     <tr th:each="booking: ${bookings}">
                         <td th:text="${booking.id}"></td>
                         <td th:text="${booking.userId}"></td>
-                        <td th:text="${booking.rooms}"></td>
+                        <td th:text="${booking.instruments}"></td>
                         <td th:text="${booking.startDate}"></td>
                         <td th:text="${booking.endDate}"></td>
                         <td>
@@ -84,36 +84,36 @@
 
         <div class="card col">
             <div class="card-body">
-                <h5 class="card-title">Rooms</h5>
+                <h5 class="card-title">Instruments</h5>
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Room Area</th>
-                        <th scope="col">Number of Beds</th>
-                        <th scope="col">Standard Room</th>
-                        <th scope="col">Max People</th>
+                        <th scope="col">Instrument type</th>
+                        <th scope="col">Instrument weight</th>
+                        <th scope="col">Instrument colour</th>
+                        <th scope="col">Instrument price</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="room: ${rooms}">
-                        <td th:text="${room.id}"></td>
-                        <td th:text="${room.capacityRoom} + 'm2'"></td>
-                        <td th:text="${room.numberOfBeds}"></td>
-                        <td th:text="${room.roomStandardEnum}"></td>
-                        <td th:text="${room.maxPeople}"></td>
+                    <tr th:each="instrument: ${instruments}">
+                        <td th:text="${instrument.id}"></td>
+                        <td th:text="${instrument.instrumentType} + 'm2'"></td>
+                        <td th:text="${instrument.instrumentWeight}"></td>
+                        <td th:text="${instrument.colour}"></td>
+                        <td th:text="${instrument.price}"></td>
                         <td>
-                            <a th:href="@{deleteRoom/__${room.id}__}" class="btn btn-danger">Delete</a>
+                            <a th:href="@{deleteInstrument/__${instrument.id}__}" class="btn btn-danger">Delete</a>
                         </td>
                     </tbody>
                 </table>
                 <nav aria-label="..." style="margin-top: 1rem">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item" th:if="${rooms.totalPages > 0}"
-                            th:each="pageNumber : ${roomsPageNumbers}">
-                            <a th:href="@{/admin(roomsSize=${bookings.size}, roomsPage=${pageNumber})}"
-                               th:text="${pageNumber}" th:class="'page-link ' + ${pageNumber==rooms.number + 1}"></a>
+                        <li class="page-item" th:if="${instruments.totalPages > 0}"
+                            th:each="pageNumber : ${instrumentsPageNumbers}">
+                            <a th:href="@{/admin(instrumentsWeight=${bookings.weight}, instrumentsPage=${pageNumber})}"
+                               th:text="${pageNumber}" th:class="'page-link ' + ${pageNumber==instruments.number + 1}"></a>
                         </li>
                     </ul>
                 </nav>

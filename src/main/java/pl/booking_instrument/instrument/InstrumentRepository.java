@@ -6,7 +6,7 @@ import pl.booking_instrument.instrument.model.InstrumentTypeEnum;
 
 import java.util.List;
 
-public interface RoomRepository extends JpaRepository<InstrumentEntity, Long> {
+public interface InstrumentRepository extends JpaRepository<InstrumentEntity, Long> {
 
     //List<InstrumentEntity> findAllByRoomStandardAndMaxPeopleAndNumberOfBeds(InstrumentTypeEnum instrumentTypeEnum, Integer maxPeople, Integer numberOfBeds);
     //List<InstrumentEntity> findAllByMaxPeopleAndNumberOfBeds(Integer maxPeople, Integer numberOfBeds);

@@ -17,7 +17,7 @@ public class BookingDto {
     private Long id;
     private UUID code;
     private Long userId;
-    private String rooms;
+    private String instruments;
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -26,16 +26,16 @@ public class BookingDto {
                 .id(bookingEntity.getId())
                 .code(bookingEntity.getBookingCode())
                 .userId(bookingEntity.getUser().getId())
-                .rooms(roomsToString(bookingEntity.getRooms()))
+                .instruments(instrumentsToString(bookingEntity.getInstruments()))
                 .startDate(bookingEntity.getStartDate())
                 .endDate(bookingEntity.getEndDate())
                 .build();
 
     }
 
-    private static String roomsToString(List<InstrumentEntity> rooms){
+    private static String instrumentsToString(List<InstrumentEntity> instruments){
         StringJoiner stringJoiner = new StringJoiner(", ");
-        rooms.forEach(booking -> stringJoiner.add(booking.getInstrumentWeight() + " " + booking.getInstrumentType() + " " + booking.getColour() + " " + booking.getPrice()));
+        instruments.forEach(booking -> stringJoiner.add(booking.getInstrumentWeight() + " " + booking.getInstrumentType() + " " + booking.getColour() + " " + booking.getPrice()));
         return stringJoiner.toString();
     }
 
