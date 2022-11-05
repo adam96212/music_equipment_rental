@@ -35,7 +35,7 @@ public class BookingDto {
 
     private static String instrumentsToString(List<InstrumentEntity> instruments){
         StringJoiner stringJoiner = new StringJoiner(", ");
-        instruments.forEach(booking -> stringJoiner.add(booking.getInstrumentWeight() + " " + booking.getInstrumentType() + " " + booking.getColour() + " " + booking.getPrice()));
+        instruments.forEach(booking -> stringJoiner.add(booking.getInstrumentName() + " " + booking.getInstrumentType() + " " + booking.getColour() + " " + booking.getPrice()));
         return stringJoiner.toString();
     }
 

@@ -20,11 +20,11 @@ public class InstrumentEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instrument_seq")
     private Long id;
 
-    private int instrumentWeight;
+    private String instrumentName;
 
     private InstrumentTypeEnum instrumentType;
 
-    private int colour;
+    private String colour;
 
     private int price;
 

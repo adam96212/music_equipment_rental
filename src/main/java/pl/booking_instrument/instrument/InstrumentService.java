@@ -30,7 +30,7 @@ public class InstrumentService {
 
     public InstrumentDto addInstrument(CreateInstrumentDto createInstrumentDto) {
         InstrumentEntity instrument = new InstrumentEntity();
-        instrument.setInstrumentWeight(createInstrumentDto.getInstrumentWeight());
+        instrument.setInstrumentName(createInstrumentDto.getInstrumentName());
         instrument.setInstrumentType(InstrumentTypeEnum.valueOf(createInstrumentDto.getInstrumentType()));
         instrument.setColour(createInstrumentDto.getColour());
         instrument.setPrice(createInstrumentDto.getPrice());
@@ -122,22 +122,22 @@ public class InstrumentService {
 
     @PostConstruct
     public void init(){
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(35).instrumentType("WIND").colour(3).price(2).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(45).instrumentType("WIND").colour(6).price(3).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(24).instrumentType("WIND").colour(4).price(2).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(20).instrumentType("WIND").colour(3).price(3).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(40).instrumentType("WIND").colour(2).price(1).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(60).instrumentType("WIND").colour(5).price(3).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(70).instrumentType("WIND").colour(6).price(4).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(80).instrumentType("WIND").colour(8).price(4).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(15).instrumentType("WIND").colour(1).price(1).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(66).instrumentType("WIND").colour(3).price(3).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(77).instrumentType("WIND").colour(4).price(2).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(98).instrumentType("WIND").colour(8).price(6).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(105).instrumentType("WIND").colour(10).price(8).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(15).instrumentType("WIND").colour(1).price(1).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(35).instrumentType("WIND").colour(2).price(1).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(25).instrumentType("WIND").colour(2).price(1).build());
-        addInstrument(CreateInstrumentDto.builder().instrumentWeight(40).instrumentType("WIND").colour(3).price(2).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Electric piano").instrumentType("KEYBOARD").colour("White").price(2).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Cello").instrumentType("STRING").colour("Red").price(3).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Clarinet").instrumentType("WIND").colour("Yellow").price(2).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Violin").instrumentType("STRING").colour("Blue").price(3).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Oboe").instrumentType("WIND").colour("White").price(1).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Saxophone").instrumentType("WIND").colour("Blue").price(3).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Violin").instrumentType("STRING").colour("Blue").price(4).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Accordion").instrumentType("KEYBOARD").colour("Yellow").price(4).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Acoustic guitar").instrumentType("STRING").colour("Red").price(1).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Trumpet").instrumentType("WIND").colour("White").price(3).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Accordion").instrumentType("KEYBOARD").colour("White").price(2).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Clarinet").instrumentType("WIND").colour("Yellow").price(6).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Trumpet").instrumentType("WIND").colour("Black").price(8).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Electric guitar").instrumentType("STRING").colour("Orange").price(1).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Clarinet").instrumentType("WIND").colour("White").price(1).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Electric piano").instrumentType("KEYBOARD").colour("Black").price(1).build());
+        addInstrument(CreateInstrumentDto.builder().instrumentName("Electric guitar").instrumentType("STRING").colour("Yellow").price(2).build());
     }
 }

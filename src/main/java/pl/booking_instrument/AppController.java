@@ -118,7 +118,9 @@ public class AppController {
     {
         List<InstrumentDto> instruments = instrumentService.searchInstruments(instrumentSearchRequest);
         searchRequestDtoGlobal = instrumentSearchRequest;
+        System.out.println(instruments.toString());
         cache.setInstruments(instruments);
+
         return "redirect:/search";
     }
 
@@ -158,7 +160,7 @@ public class AppController {
                                 @RequestParam("bookingsPage") Optional<Integer> bookingsPage,
                                 @RequestParam("bookingsSize") Optional<Integer> bookingsSize,
                                 @RequestParam("instrumentsPage") Optional<Integer> instrumentsPage,
-                                @RequestParam("instrumentsWeight") Optional<Integer> instrumentsWeight)
+                                @RequestParam("instrumentsName") Optional<String> instrumentsName)
     {
         int usersCurrentPage = usersPage.orElse(1);
         int usersPageSize = usersSize.orElse(5);
@@ -193,19 +195,19 @@ public class AppController {
         }
 
         int currentPage = instrumentsPage.orElse(1);
-        int pageSize = instrumentsWeight.orElse(5);
+        int pageSize = (5);
 
-        Page<InstrumentDto> rooms = instrumentService.getInstruments(PageRequest.of(currentPage - 1, pageSize));
+        Page<InstrumentDto> instruments = instrumentService.getInstruments(PageRequest.of(currentPage - 1, pageSize));
 
-        model.addAttribute("rooms", rooms);
+        model.addAttribute("instruments", instruments);
 
-        int totalPages = rooms.getTotalPages();
+        int totalPages = instruments.getTotalPages();
         if (totalPages > 0)
         {
-            List<Integer> roomsPageNumbers = IntStream.rangeClosed(1, totalPages)
+            List<Integer> instrumentsPageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
-            model.addAttribute("roomsPageNumbers", roomsPageNumbers);
+            model.addAttribute("instrumentsPageNumbers", instrumentsPageNumbers);
         }
 
         return "admin";
@@ -230,8 +232,8 @@ public class AppController {
         return "redirect:/admin";
     }
 
-    @GetMapping(path = "/deleteRoom/{id}")
-    public String deleteRoom(@PathVariable Long id)
+    @GetMapping(path = "/deleteInstrument/{id}")
+    public String deleteInstrument(@PathVariable Long id)
     {
         instrumentService.deleteInstrument(id);
         return "redirect:/admin";

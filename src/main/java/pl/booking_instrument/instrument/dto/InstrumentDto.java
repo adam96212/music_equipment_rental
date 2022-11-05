@@ -14,16 +14,16 @@ import pl.booking_instrument.instrument.model.InstrumentTypeEnum;
 public class InstrumentDto {
 
     private Long id;
-    private int instrumentWeight;
+    private String instrumentName;
     private InstrumentTypeEnum instrumentTypeEnum;
-    private int colour;
+    private String colour;
     private int price;
 
     public static InstrumentDto create(InstrumentEntity instrumentEntity){
 
         return InstrumentDto.builder()
                 .id(instrumentEntity.getId())
-                .instrumentWeight(instrumentEntity.getInstrumentWeight())
+                .instrumentName(instrumentEntity.getInstrumentName())
                 .instrumentTypeEnum(instrumentEntity.getInstrumentType())
                 .colour(instrumentEntity.getColour())
                 .price(instrumentEntity.getPrice())

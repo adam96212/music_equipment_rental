@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateInstrumentDto {
 
-    private int instrumentWeight;
+    private String instrumentName;
     private String instrumentType;
-    private int colour;
+    private String colour;
     private int price;
 }

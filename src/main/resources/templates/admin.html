@@ -99,10 +99,10 @@
                     <tbody>
                     <tr th:each="instrument: ${instruments}">
                         <td th:text="${instrument.id}"></td>
-                        <td th:text="${instrument.instrumentType} + 'm2'"></td>
-                        <td th:text="${instrument.instrumentWeight}"></td>
+                        <td th:text="${instrument.instrumentTypeEnum}"></td>
+                        <td th:text="${instrument.instrumentName}"></td>
                         <td th:text="${instrument.colour}"></td>
-                        <td th:text="${instrument.price}"></td>
+                        <td th:text="${instrument.price} + 'zł'"></td>
                         <td>
                             <a th:href="@{deleteInstrument/__${instrument.id}__}" class="btn btn-danger">Delete</a>
                         </td>
@@ -112,7 +112,7 @@
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:if="${instruments.totalPages > 0}"
                             th:each="pageNumber : ${instrumentsPageNumbers}">
-                            <a th:href="@{/admin(instrumentsWeight=${bookings.weight}, instrumentsPage=${pageNumber})}"
+                            <a th:href="@{/admin(instrumentName=${bookings.size}, instrumentsPage=${pageNumber})}"
                                th:text="${pageNumber}" th:class="'page-link ' + ${pageNumber==instruments.number + 1}"></a>
                         </li>
                     </ul>
