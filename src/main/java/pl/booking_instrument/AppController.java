@@ -118,7 +118,7 @@ public class AppController {
     {
         List<InstrumentDto> instruments = instrumentService.searchInstruments(instrumentSearchRequest);
         searchRequestDtoGlobal = instrumentSearchRequest;
-        System.out.println(instruments.toString());
+        System.out.println(instrumentSearchRequest.toString());
         cache.setInstruments(instruments);
 
         return "redirect:/search";

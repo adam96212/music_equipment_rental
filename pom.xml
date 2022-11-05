@@ -11,7 +11,7 @@
     <groupId>pl</groupId>
     <artifactId>music_equipment_rental</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rent_a_car</name>
+    <name>music_instrument_rental</name>
     <description>rent_a_car</description>
     <properties>
         <java.version>11</java.version>
